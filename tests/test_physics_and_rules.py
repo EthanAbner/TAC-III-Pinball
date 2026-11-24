@@ -10,7 +10,7 @@ from modulos.entities.ball import Ball
 from modulos.entities.actuators import Flipper, Plunger
 from modulos.entities.obstacles import Bumper, Target
 from modulos.effects.score import PlayerScore
-from constants import GRAVITY, FIXED_DT
+from modulos.config.constants import GRAVITY, FIXED_DT
 
 
 def test_vector_math():
@@ -134,11 +134,11 @@ def game(monkeypatch):
     stage_module.Stage=lambda root: None
     monkeypatch.setitem(sys.modules,'modulos.ui.stage',stage_module)
     # O import dinâmico permite testar o modelo sem exigir placa gráfica.
-    sys.modules.pop('game',None)
-    module=importlib.import_module('game')
+    sys.modules.pop('modulos.core.game',None)
+    module=importlib.import_module('modulos.core.game')
     obj=module.Game(FakeInput(),FakeAudio(),'.')
     yield obj
-    sys.modules.pop('game',None)
+    sys.modules.pop('modulos.core.game',None)
 
 
 def test_game_starts_with_three_balls(game):
@@ -204,7 +204,7 @@ def test_score_is_separate_per_player(game):
 
 
 def test_teto_circular_mantem_bola_e_deslizamento():
-    from constants import ARCH_CENTER_X, ARCH_CENTER_Y, ARCH_RADIUS
+    from modulos.config.constants import ARCH_CENTER_X, ARCH_CENTER_Y, ARCH_RADIUS
     ball=Ball(TrajectoryController(CollisionManager()),ARCH_CENTER_X+200,ARCH_CENTER_Y-200,ready=False)
     ball.velocity=Vector(0,-900)
     assert CollisionManager.circle_inside_arch(ball,ARCH_CENTER_X,ARCH_CENTER_Y,ARCH_RADIUS)
@@ -239,7 +239,7 @@ def test_lancamento_fraco_volta_ao_lancador_sem_perder_vida(game):
 
 
 def test_viewport_centraliza_em_janela_larga_e_alta():
-    from display import fit_viewport
+    from modulos.core.display import fit_viewport
     assert fit_viewport(1440,900)==(360,0,720,900)
     assert fit_viewport(720,1100)==(0,100,720,900)
 

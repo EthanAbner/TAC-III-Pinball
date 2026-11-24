@@ -16,27 +16,35 @@ DOCS = ROOT/'docs'
 PACKAGE_NAMES = {'engine','display','game','events','physics','entities','audio','ui','effects','config','constants'}
 
 
-CORE = ('engine','display','game','constants')
+# Núcleo em modulos/core/ e constantes em modulos/config/: aparecem como nós próprios.
+CORE = {('core','engine'):'engine',('core','display'):'display',('core','game'):'game',
+        ('config','constants'):'constants'}
 # Arquivos herdados do protótipo de plataforma, fora do pinball.
 LEGACY = {'editor.py','utils.py','entities/player.py','entities/tiles.py','events/actions.py',
           'events/io.py','ui/background.py','ui/level1.py','ui/panel.py'}
 
 
 def module_files():
-    """Lista os módulos do pinball: núcleo na raiz e pacotes em modulos/."""
-    files=[ROOT/f'{name}.py' for name in CORE]
-    files+=[p for p in MODULES.rglob('*.py') if p.relative_to(MODULES).as_posix() not in LEGACY]
-    return files
+    """Lista os módulos do pinball em modulos/ (o núcleo fica em modulos/core/)."""
+    return [p for p in MODULES.rglob('*.py') if p.relative_to(MODULES).as_posix() not in LEGACY]
+
+
+def node_name(parts):
+    """Nome do nó no diagrama para um caminho de módulo relativo a modulos/."""
+    parts=list(parts)
+    if not parts:return None
+    return CORE.get(tuple(parts[:2]),parts[0])
 
 
 def find_deps(filename:Path):
     """Obtém dependências diretas de um módulo do núcleo ou de modulos/."""
     node=ast.parse(filename.read_text(encoding='utf-8'))
-    current=[] if filename.parent==ROOT else list(filename.relative_to(MODULES).parts[:-1])
+    current=list(filename.relative_to(MODULES).parts[:-1])
     out=set()
     def register(parts):
         if parts and parts[0]=='modulos':parts=parts[1:]
-        if parts and parts[0] in PACKAGE_NAMES:out.add(parts[0])
+        name=node_name(parts)
+        if name in PACKAGE_NAMES:out.add(name)
     for entry in ast.walk(node):
         if isinstance(entry,ast.ImportFrom):
             if entry.level:
@@ -53,7 +61,7 @@ def packages():
     mapping={}
     for path in module_files():
         if path.name=='__init__.py':continue
-        depname=path.stem if path.parent==ROOT else path.relative_to(MODULES).parts[0]
+        depname=node_name(path.relative_to(MODULES).with_suffix('').parts)
         if depname not in PACKAGE_NAMES:continue
         mapping.setdefault(depname,set()).update(find_deps(path))
     return {k:sorted(x for x in v if x!=k) for k,v in mapping.items()}

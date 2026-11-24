@@ -1,6 +1,6 @@
 import pygame
-from ..constants import WIDTH, HEIGHT, GRAVITY, SIZE_PLAYER
-from ..constants import MAP_H, FILE_PLAYER_1, TILE_SIZE, SCALE, FILE_SPRITES_PLAYER
+from ..config.constants import WIDTH, HEIGHT, GRAVITY, SIZE_PLAYER
+from ..config.constants import MAP_H, FILE_PLAYER_1, TILE_SIZE, SCALE, FILE_SPRITES_PLAYER
 from ..utils import utils
 
 

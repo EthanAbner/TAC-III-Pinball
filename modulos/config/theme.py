@@ -1,3 +1,3 @@
 """Paleta visual arcade do projeto."""
-from constants import COLORS
+from modulos.config.constants import COLORS
 THEME = COLORS

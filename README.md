@@ -17,7 +17,22 @@ py -3.12 -m venv .venv
 
 4. No VS Code, `Ctrl+Shift+P → Python: Select Interpreter → .venv\Scripts\python.exe`. Para depurar, pressione **F5** e escolha **Pinball TAC III (Pygame + OpenGL)**.
 
-Alternativa: `INICIAR_JOGO_WINDOWS.bat` automatiza os passos de instalar e iniciar no Windows. Na primeira execução, é necessária internet para baixar os pacotes. **Não execute `game.py` isoladamente**; rode `main.py` na raiz.
+## COMEÇAR (Linux / macOS)
+
+Na raiz do projeto, com Python 3.12:
+
+```bash
+python3.12 -m venv .venv                 # só na primeira vez
+source .venv/bin/activate                # ativa o ambiente
+pip install -r requirements.txt pytest   # só na primeira vez
+python main.py                           # inicia o jogo
+python -m pytest -q tests                # testes automatizados
+deactivate                               # sai do ambiente
+```
+
+No VS Code, selecione `.venv/bin/python` em `Python: Select Interpreter` (o `.vscode/settings.json` aponta para o caminho do Windows).
+
+Alternativa: `INICIAR_JOGO_WINDOWS.bat` automatiza os passos de instalar e iniciar no Windows. Na primeira execução, é necessária internet para baixar os pacotes. **Não execute `modulos/core/game.py` isoladamente**; rode `main.py` na raiz.
 
 **Documentação detalhada:** `docs/entrega/GUIA_VSCODE_WINDOWS.md` — instalação, problemas frequentes, seleção de ambiente. `docs/entrega/MAPA_DE_MODULOS_APRESENTACAO.md` — localização de sprites, áudio, física e regras; roteiro para explicar ao professor. `docs/entrega/GDD_COM_ANEXO_TECNICO.docx` — GDD com anexo explicativo. GDD original está preservado em `docs/entrega/GDD_original.docx`.
 
@@ -40,7 +55,7 @@ Alternativa: `INICIAR_JOGO_WINDOWS.bat` automatiza os passos de instalar e inici
 - **Sprite sheet efetivamente carregada:** `assets/pinball/pinball_atlas.png` + coordenadas em `pinball_atlas.json`.
 - **Código para os recortes em execução:** `modulos/ui/sprite_sheet.py` (`SpriteSheet`) e desenho em `modulos/ui/stage.py` (`Stage`).
 - Áudio do jogo em `assets/sound/` (singular), gerenciado por `modulos/audio/audio_manager.py`; efeitos e trilha foram sintetizados como assets adicionais para RF11 e RF12.
-- Módulos essenciais: `engine.py` (loop), `display.py` (Pygame/OpenGL), `modulos/events/`, `modulos/physics/`, `modulos/entities/`, `modulos/effects/`, `modulos/ui/`, `modulos/audio/`, `game.py` (regras/turnos).
+- Módulos essenciais: `modulos/core/engine.py` (loop), `modulos/core/display.py` (Pygame/OpenGL), `modulos/events/`, `modulos/physics/`, `modulos/entities/`, `modulos/effects/`, `modulos/ui/`, `modulos/audio/`, `modulos/core/game.py` (regras/turnos).
 
 ## GDD: regras e limitações
 
@@ -63,18 +78,15 @@ Os testes automatizados do pacote validam lógica e assets; **som, contexto grá
 
 ### Arquitetura de pastas
 
-O pinball segue a arquitetura do protótipo: arquivos de núcleo na raiz do projeto e os demais módulos em `modulos/`.
+Na raiz fica apenas o ponto de entrada `main.py`; o núcleo (loop, regras, janela) está em `modulos/core/`, as constantes em `modulos/config/constants.py` e os demais módulos em `modulos/`.
 
 ```text
 Pinball_TACIII_Python/
-├── main.py                 # ponto de entrada
-├── engine.py               # loop principal
-├── game.py                 # regras, estados e turnos
-├── display.py              # Pygame + OpenGL
-├── constants.py            # constantes
+├── main.py                 # ponto de entrada (único .py de jogo na raiz)
 ├── modulos/
+│   ├── core/               # engine.py (loop), game.py (regras/turnos), display.py (Pygame + OpenGL)
 │   ├── audio/              # áudio
-│   ├── config/             # opções e tema
+│   ├── config/             # constants.py, opções e tema
 │   ├── effects/            # pontuação e bônus
 │   ├── entities/           # bola, flippers, lançador e obstáculos
 │   ├── events/             # entrada de teclado (commands.py)
@@ -98,11 +110,11 @@ O projeto tem **288 arquivos**, e o pinball funciona com **17 módulos Python**,
 flowchart TD
     MAIN["main.py<br/>Ponto de entrada"] --> ENGINE
 
-    subgraph NUCLEO["Núcleo (raiz)"]
-        ENGINE["engine.py<br/>GameEngine: loop principal"]
-        GAME["game.py<br/>Game: regras, estados e turnos"]
-        DISPLAY["display.py<br/>Display: Pygame + OpenGL"]
-        CONST["constants.py<br/>Constantes globais"]
+    subgraph NUCLEO["modulos/core/ + config/constants.py"]
+        ENGINE["core/engine.py<br/>GameEngine: loop principal"]
+        GAME["core/game.py<br/>Game: regras, estados e turnos"]
+        DISPLAY["core/display.py<br/>Display: Pygame + OpenGL"]
+        CONST["config/constants.py<br/>Constantes globais"]
     end
 
     subgraph MODULOS["modulos/"]
@@ -153,7 +165,7 @@ flowchart TD
     THEME -.-> CONST
 ```
 
-`constants.py` também é usado por `engine`, `game`, `display`, `stage`, `score`, `ball` e `trajectory_controller`. Essas setas foram omitidas para manter o diagrama legível.
+`modulos/config/constants.py` também é usado por `engine`, `game`, `display`, `stage`, `score`, `ball` e `trajectory_controller`. Essas setas foram omitidas para manter o diagrama legível.
 
 **Organização dos arquivos**
 
@@ -162,7 +174,7 @@ flowchart LR
     ROOT["Projeto<br/>288 arquivos"]
 
     ROOT --> CODE["Código do pinball"]
-    CODE --> C1["Núcleo: 5 arquivos"]
+    CODE --> C1["main.py + núcleo em modulos/core/"]
     CODE --> C2["modulos/: 12 módulos ativos"]
     CODE --> C3["tests/: 2 arquivos, 28 testes"]
 
@@ -185,14 +197,14 @@ flowchart LR
     OLD --> O1["exemplos/: 116"]
     OLD --> O2["diagramas/: 13"]
     OLD --> O3["data/: 3, locale/: 1, logs/: 1"]
-    OLD --> O4["12 módulos do protótipo<br/>player, panel, utils, tiles, level1..."]
+    OLD --> O4["9 módulos do protótipo<br/>player, panel, utils, tiles, level1..."]
 ```
 
 **Pontos a limpar**
 
 - `modulos/config/` não está conectado: nenhum módulo ativo importa `settings.py` ou `theme.py`.
-- O código legado importa caminhos que não existem mais, como `modulos.constants` e `modulos.game`. O pinball não o utiliza.
+- O código legado teve os imports apontados para `modulos.config.constants`, `modulos.core.display` e `modulos.core.game`, mas ainda depende de constantes e objetos do protótipo de plataforma (ex.: `SIZE_PLAYER`, `TILE_SIZE`, `display`, `game`) que não existem no pinball. O pinball não o utiliza.
 
 ### Materiais legados
 
-Não fazem parte do pinball: `exemplos/`, `diagramas/`, `data/`, `player.py`, `panel.py`, `utils.py`, `requirements_original_utf16.txt`, `modulos/editor.py`, `modulos/utils.py`, `modulos/entities/player.py`, `modulos/entities/tiles.py`, `modulos/events/actions.py`, `modulos/events/io.py`, `modulos/ui/background.py`, `modulos/ui/level1.py` e `modulos/ui/panel.py`. As versões originais de `main.py`, `engine.py`, `game.py`, `display.py` e `constants.py` do protótipo continuam na branch `alvaro-star/migracao-arquitetura`, no commit "Registrar protótipo original antes da migração".
+Não fazem parte do pinball: `exemplos/`, `diagramas/`, `data/`, `requirements_original_utf16.txt`, `modulos/editor.py`, `modulos/utils.py`, `modulos/entities/player.py`, `modulos/entities/tiles.py`, `modulos/events/actions.py`, `modulos/events/io.py`, `modulos/ui/background.py`, `modulos/ui/level1.py` e `modulos/ui/panel.py`. As versões originais de `main.py` e dos arquivos de núcleo do protótipo (antes na raiz) continuam na branch `alvaro-star/migracao-arquitetura`, no commit "Registrar protótipo original antes da migração".

@@ -1,5 +1,5 @@
 """Regras do pinball - estados, jogo para 1-2 pessoas, pontuação e vidas."""
-from constants import (LEFT, RIGHT, BOTTOM, LAUNCH_X, LAUNCH_Y, LANE_LEFT,
+from modulos.config.constants import (LEFT, RIGHT, BOTTOM, LAUNCH_X, LAUNCH_Y, LANE_LEFT,
                        ARCH_CENTER_X, ARCH_CENTER_Y, ARCH_RADIUS)
 from modulos.physics.collision_manager import Vector, CollisionManager
 from modulos.physics.trajectory_controller import TrajectoryController

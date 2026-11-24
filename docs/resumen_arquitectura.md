@@ -8,11 +8,11 @@ Resumen generado a partir de los archivos y las importaciones reales del proyect
 flowchart TD
     MAIN["main.py<br/>Punto de entrada"] --> ENGINE
 
-    subgraph NUCLEO["Núcleo (raíz)"]
-        ENGINE["engine.py<br/>GameEngine: bucle principal"]
-        GAME["game.py<br/>Game: reglas, estados y turnos"]
-        DISPLAY["display.py<br/>Display: Pygame + OpenGL"]
-        CONST["constants.py<br/>Constantes globales"]
+    subgraph NUCLEO["modulos/core/ + config/constants.py"]
+        ENGINE["core/engine.py<br/>GameEngine: bucle principal"]
+        GAME["core/game.py<br/>Game: reglas, estados y turnos"]
+        DISPLAY["core/display.py<br/>Display: Pygame + OpenGL"]
+        CONST["config/constants.py<br/>Constantes globales"]
     end
 
     subgraph MODULOS["modulos/"]
@@ -63,7 +63,7 @@ flowchart TD
     THEME -.-> CONST
 ```
 
-`constants.py` también lo usan `engine`, `game`, `display`, `stage`, `score`, `ball` y `trajectory_controller`. Esas flechas se omiten para que el diagrama se pueda leer.
+`modulos/config/constants.py` también lo usan `engine`, `game`, `display`, `stage`, `score`, `ball` y `trajectory_controller`. Esas flechas se omiten para que el diagrama se pueda leer.
 
 ## Organización de los archivos
 
@@ -72,7 +72,7 @@ flowchart LR
     ROOT["Proyecto<br/>288 archivos"]
 
     ROOT --> CODE["Código del pinball"]
-    CODE --> C1["Núcleo: 5 archivos"]
+    CODE --> C1["main.py + núcleo en modulos/core/"]
     CODE --> C2["modulos/: 12 módulos activos"]
     CODE --> C3["tests/: 2 archivos, 28 tests"]
 

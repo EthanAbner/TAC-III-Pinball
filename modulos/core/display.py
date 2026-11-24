@@ -1,6 +1,6 @@
 """Janela Pygame, renderização em OpenGL por padrão e compatibilidade opcional."""
 import pygame
-from constants import WIDTH, HEIGHT, TITLE, FPS, COLORS
+from modulos.config.constants import WIDTH, HEIGHT, TITLE, FPS, COLORS
 
 
 def fit_viewport(window_w, window_h):

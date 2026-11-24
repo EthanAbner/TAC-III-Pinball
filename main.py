@@ -1,6 +1,6 @@
 """Ponto de entrada: rodar a partir da pasta raiz no VS Code: python main.py."""
 import argparse
-from engine import GameEngine
+from modulos.core.engine import GameEngine
 
 
 def main():

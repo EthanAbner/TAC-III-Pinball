@@ -1,6 +1,6 @@
 #import pygame
 import json
-from ..constants import MAP_H, MAP_W, TILE_SIZE, FILE_LV1, FILE_LV1_JSON
+from ..config.constants import MAP_H, MAP_W, TILE_SIZE, FILE_LV1, FILE_LV1_JSON
 from ..utils import utils
 import numpy as np
 import scipy.sparse as sp

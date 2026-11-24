@@ -1,6 +1,6 @@
 import pygame
 from ..utils import utils
-from ..constants import TILE_SIZE, TILE_CROP, FILE_MAP_1
+from ..config.constants import TILE_SIZE, TILE_CROP, FILE_MAP_1
 
 
 class Tile():

@@ -1,6 +1,6 @@
 import pygame
-from ..display import display
-from ..constants import SCALE
+from ..core.display import display
+from ..config.constants import SCALE
 from ..utils import utils
 
 class Panel():

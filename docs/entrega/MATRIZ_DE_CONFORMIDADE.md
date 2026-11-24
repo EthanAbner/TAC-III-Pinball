@@ -4,22 +4,22 @@ Esta matriz foi elaborada a partir do documento **UNI - TAC III - GDD de Pinball
 
 | Identificador | Orientação do GDD | Implementação / arquivo | Verificação nesta entrega |
 |---|---|---|---|
-| RF1 | Iniciar, pausar e reiniciar | `game.py` (`start_game`, `pause`) e `input/commands.py` | Teste automatizado |
-| RF2 | Flippers controlados pelo teclado | `entities/actuators.py`, `input/commands.py` | Teste de acionamento independente |
+| RF1 | Iniciar, pausar e reiniciar | `modulos/core/game.py` (`start_game`, `pause`) e `events/commands.py` | Teste automatizado |
+| RF2 | Flippers controlados pelo teclado | `entities/actuators.py`, `events/commands.py` | Teste de acionamento independente |
 | RF3 | Física: gravidade, atrito, colisão e quicar | `physics/trajectory_controller.py`, `physics/collision_manager.py` | Testes de trajetória e rebote |
-| RF4 | Colisão com obstáculos, paredes, bumpers e flippers | `game.py` (`collide_world`), `entities/obstacles.py` | Testes parciais de colisão; jogabilidade visual pendente |
+| RF4 | Colisão com obstáculos, paredes, bumpers e flippers | `modulos/core/game.py` (`collide_world`), `entities/obstacles.py` | Testes parciais de colisão; jogabilidade visual pendente |
 | RF5 | Escolher força de lançamento | `Plunger` e `Ball.launch` | Testes de carga/força |
-| RF6 | Identificar bola perdida | `game.py` (dreno inferior e `lose_last_ball`) | Teste de perda/contagem |
+| RF6 | Identificar bola perdida | `modulos/core/game.py` (dreno inferior e `lose_last_ball`) | Teste de perda/contagem |
 | RF7 | Contabilizar e exibir pontuação de cada jogador | `effects/score.py`, `ui/stage.py` | Teste do placar individual; interface pendente de validação |
-| RF8 | Bônus por colisões/power-ups | `effects/score.py`, `game.py` | Testes de combo e multiplicador |
-| RF9 | Permitir multiball (opcional) | `game.py` (`point`) | Teste de multiball |
-| RF10 | Encerrar jogo após todas as vidas | `game.py` (`lose_last_ball`) | Teste de game over |
+| RF8 | Bônus por colisões/power-ups | `effects/score.py`, `modulos/core/game.py` | Testes de combo e multiplicador |
+| RF9 | Permitir multiball (opcional) | `modulos/core/game.py` (`point`) | Teste de multiball |
+| RF10 | Encerrar jogo após todas as vidas | `modulos/core/game.py` (`lose_last_ball`) | Teste de game over |
 | RF11 | Efeitos sonoros de colisão, power-ups e game over | `audio/audio_manager.py`, `assets/sound/*.wav` | Arquivos gerados; reprodução pendente de validação |
 | RF12 | Trilha musical de fundo | `assets/sound/music.wav`, `audio/audio_manager.py` | Arquivo gerado; reprodução pendente de validação |
 | RF13 | HUD com pontos, vidas e status dos power-ups | `ui/stage.py` (`draw_hud`) | Código revisado; interface pendente de validação |
 | RNF1 | Rodar em PC Windows | `main.py`, `.vscode/launch.json`, `INICIAR_JOGO_WINDOWS.bat`, `requirements.txt` | Estrutura Windows criada; execução real pendente |
-| RNF2 | Mínimo 30 FPS | `constants.FPS=60`, `display.py` | **Não comprovado** sem benchmark Windows |
-| RNF3 | Compatibilidade com resoluções comuns | `display.py`: janela proporcional ajustada à tela | Código revisado; teste em diferentes monitores pendente |
+| RNF2 | Mínimo 30 FPS | `constants.FPS=60`, `modulos/core/display.py` | **Não comprovado** sem benchmark Windows |
+| RNF3 | Compatibilidade com resoluções comuns | `modulos/core/display.py`: janela proporcional ajustada à tela | Código revisado; teste em diferentes monitores pendente |
 | RNF4 | Código modular | `modulos/{engine,display,input,physics,entities,audio,effects,ui,config}` | Organização/compilação confirmadas |
 | RNF5 | Recursos de imagem/som leves | sprites PNG recortados e áudios WAV mono de baixa duração | Arquivos presentes; benchmark de memória pendente |
 

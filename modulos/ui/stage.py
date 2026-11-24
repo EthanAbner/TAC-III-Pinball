@@ -4,7 +4,7 @@ import random
 from pathlib import Path
 import pygame
 from .sprite_sheet import SpriteSheet
-from constants import (WIDTH, HEIGHT, LEFT, RIGHT, TOP, BOTTOM, COLORS,
+from modulos.config.constants import (WIDTH, HEIGHT, LEFT, RIGHT, TOP, BOTTOM, COLORS,
                        ARCH_CENTER_X, ARCH_CENTER_Y, ARCH_RADIUS)
 
 

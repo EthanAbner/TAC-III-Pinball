@@ -1,5 +1,5 @@
 import pygame
-from ..game import game
+from ..core.game import game
 
 
 def game_events():

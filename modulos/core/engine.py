@@ -1,11 +1,14 @@
 """Game engine e loop fixo de física; mantém separadas entrada, update e render."""
 import pygame
 from pathlib import Path
-from constants import FIXED_DT
-from display import Display
-from game import Game
+from modulos.config.constants import FIXED_DT
+from modulos.core.display import Display
+from modulos.core.game import Game
 from modulos.events.commands import InputManager
 from modulos.audio.audio_manager import AudioManager
+
+# Raiz do projeto (pasta de main.py), onde ficam assets/.
+ROOT = Path(__file__).resolve().parents[2]
 
 
 class GameEngine:
@@ -14,8 +17,8 @@ class GameEngine:
         pygame.init()
         self.display=Display(allow_fallback=allow_fallback)
         self.input=InputManager()
-        self.audio=AudioManager(pygame,Path(__file__).resolve().parent)
-        self.game=Game(self.input,self.audio,Path(__file__).resolve().parent)
+        self.audio=AudioManager(pygame,ROOT)
+        self.game=Game(self.input,self.audio,ROOT)
         self.accumulator=0.0
 
     def run(self):

@@ -81,7 +81,7 @@ Configurações `.vscode/settings.json` e `.vscode/launch.json` já incluídas: 
 | `py` não é reconhecido | Python não foi instalado adequadamente. Reinstale Python 3.12 com o launcher habilitado, ou use `python -m venv .venv` se `python --version` funcionar. |
 | PowerShell impede `Activate.ps1` | **Não precisa ativar**: use os comandos `.\.venv\Scripts\python.exe ...` exatamente como acima. |
 | Falha ao criar contexto OpenGL | Atualize driver gráfico, verifique hardware e execute `python main.py --compat-pygame` **somente para diagnosticar a interface 2D**. Esse modo não substitui a exigência de OpenGL. |
-| Executou `game.py` e deu erro de import relativo | Não execute módulos isolados. Abra a **raiz** e execute **`main.py`**. |
+| Executou `modulos/core/game.py` e deu erro de import relativo | Não execute módulos isolados. Abra a **raiz** e execute **`main.py`**. |
 | Sem som | Confira volume do Windows e dispositivo padrão. Os arquivos usados estão em `assets/sound/` e o gerenciador em `modulos/audio/audio_manager.py`. |
 
 ## 8. Limites dos testes disponíveis

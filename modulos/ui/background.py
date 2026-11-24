@@ -1,5 +1,5 @@
 import pygame
-from ..constants import WIDTH, HEIGHT, COLOR_BG
+from ..config.constants import WIDTH, HEIGHT, COLOR_BG
 from ..utils import utils
 from ..entities.tiles import Tile
 

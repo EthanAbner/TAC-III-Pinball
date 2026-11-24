@@ -2,21 +2,21 @@
 
 ## Fluxo principal
 
-`main.py` → `engine.py` → `display.py` (janela Pygame e exibição OpenGL) + `input/commands.py` (teclado) + `game.py` (partida) → `physics/` (física) + `entities/` (bola/obstáculos/atuadores) + `effects/` (pontos/bônus) → `ui/stage.py` (mesa/HUD/sprites) + `audio/audio_manager.py` (som).
+`main.py` → `modulos/core/engine.py` → `modulos/core/display.py` (janela Pygame e exibição OpenGL) + `events/commands.py` (teclado) + `modulos/core/game.py` (partida) → `physics/` (física) + `entities/` (bola/obstáculos/atuadores) + `effects/` (pontos/bônus) → `ui/stage.py` (mesa/HUD/sprites) + `audio/audio_manager.py` (som).
 
 ## Onde encontrar cada parte
 
 | O que demonstrar | Módulo / pasta | Função real |
 |---|---|---|
 | Inicialização | `main.py` | Ponto de entrada do jogo; abre a engine. |
-| Game loop | `engine.py` | Lê eventos, atualiza física em passos fixos e manda desenhar. |
-| Pygame e OpenGL | `display.py` | Cria janela `pygame.OPENGL`, contexto de textura e apresenta frames via `OpenGL.GL`. |
+| Game loop | `modulos/core/engine.py` | Lê eventos, atualiza física em passos fixos e manda desenhar. |
+| Pygame e OpenGL | `modulos/core/display.py` | Cria janela `pygame.OPENGL`, contexto de textura e apresenta frames via `OpenGL.GL`. |
 | Física da bola | `modulos/physics/trajectory_controller.py` | Integra gravidade e atrito, velocidade e posição a cada delta de tempo. |
 | Resolução de colisões | `modulos/physics/collision_manager.py` | Vetores, contato círculo × círculo e círculo × segmento. |
 | Entidade bola | `modulos/entities/ball.py` | Estado, posição, velocidade e lançamento. |
 | Flippers e lançador | `modulos/entities/actuators.py` | `Actuator`, `Flipper` e `Plunger`. |
 | Obstáculos | `modulos/entities/obstacles.py` | `Obstacle`, `Bumper`, `Target` e `Hole`. |
-| Regras e turnos | `game.py` | Coordena jogadores, vidas, perdas de bola, multiball, entidades e efeitos. |
+| Regras e turnos | `modulos/core/game.py` | Coordena jogadores, vidas, perdas de bola, multiball, entidades e efeitos. |
 | Regras de pontos | `modulos/effects/score.py` | `PlayerScore`, combos, multiplicador e multiball. |
 | Teclado | `modulos/events/commands.py` | Converte eventos `pygame.KEYDOWN/KEYUP` em comandos. |
 | Sprite sheet (arquivo) | `assets/pinball/pinball_atlas.png` | **Atlas usado em execução**, produzido com recortes das três pranchas recebidas. |
@@ -50,7 +50,7 @@
 
 1. `assets/sound/` tem arquivos `.wav` individuais e `music.wav`.
 2. `modulos/audio/audio_manager.py` utiliza `pygame.mixer.Sound` e `pygame.mixer.music`.
-3. `game.py` dispara sons ao lançar, colidir, perder a bola e acionar bônus.
+3. `modulos/core/game.py` dispara sons ao lançar, colidir, perder a bola e acionar bônus.
 4. `modulos/events/commands.py` trata `M` para mutar.
 5. **Origem:** sons não estavam definidos/especificados no GDD; arquivos sintetizados foram acrescentados para cumprir RF11 e RF12, não extraídos das pranchas PNG.
 

@@ -9,8 +9,8 @@ digraph packages_game {
   "effects";
   "engine";
   "entities";
+  "events";
   "game";
-  "input";
   "physics";
   "ui";
   "config" -> "constants";
@@ -19,8 +19,8 @@ digraph packages_game {
   "engine" -> "audio";
   "engine" -> "constants";
   "engine" -> "display";
+  "engine" -> "events";
   "engine" -> "game";
-  "engine" -> "input";
   "entities" -> "constants";
   "entities" -> "physics";
   "game" -> "constants";

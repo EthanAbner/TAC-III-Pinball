@@ -28,7 +28,7 @@ py -3.12 --version
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe VERIFICAR_AMBIENTE.py
+.\.venv\Scripts\python.exe -c "import pygame, OpenGL; print(pygame.version.ver, OpenGL.__version__)"
 ```
 
 O arquivo `requirements.txt` declara os pacotes **pygame** e **PyOpenGL**. Se o Python 3.12 não estiver instalado, substitua `py -3.12` por `py -3.11` (se tiver 3.11) ou instale 3.12. Se já houver uma `.venv` montada com uma versão diferente/incompatível, apague somente a pasta `.venv` e recrie.
@@ -40,7 +40,7 @@ O arquivo `requirements.txt` declara os pacotes **pygame** e **PyOpenGL**. Se o 
 1. `Ctrl + Shift + P` → digite **Python: Select Interpreter**.
 2. Escolha o interpretador correspondente a **`.venv\Scripts\python.exe`** dentro da pasta do projeto.
 3. Se não aparecer, clique em **Enter interpreter path → Find...** e selecione esse arquivo.
-4. Abra um novo terminal. Execute `python VERIFICAR_AMBIENTE.py` para conferir o caminho e as bibliotecas, ou use explicitamente o comando da etapa 3.
+4. Abra um novo terminal. Execute `python -c "import pygame, OpenGL; print(pygame.version.ver, OpenGL.__version__)"` para conferir as bibliotecas, ou use explicitamente o comando da etapa 3.
 
 Configurações `.vscode/settings.json` e `.vscode/launch.json` já incluídas: elas facilitam o reconhecimento do ambiente e o depurador.
 
@@ -53,8 +53,6 @@ Configurações `.vscode/settings.json` e `.vscode/launch.json` já incluídas: 
 ```
 
 **Executar com depurador:** no VS Code, pressione **F5**, escolha **Pinball TAC III (Pygame + OpenGL)**. É necessário que o interpretador `.venv` tenha sido selecionado.
-
-**Executar pelo Windows sem entrar no VS Code:** clique duas vezes em `INICIAR_JOGO_WINDOWS.bat`. Ele cria ambiente virtual e instala dependências, depois chama `main.py`.
 
 **Verificações de lógica (opcional):**
 

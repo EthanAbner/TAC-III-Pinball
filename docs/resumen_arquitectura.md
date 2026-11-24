@@ -83,12 +83,10 @@ flowchart LR
 
     ROOT --> DOC["Documentación"]
     DOC --> D1["docs/: 20<br/>Incluye 6 de entrega"]
-    DOC --> D2["README.md y ENTREGA_LEIA_PRIMEIRO.txt"]
+    DOC --> D2["README.md"]
 
     ROOT --> SETUP["Ejecución y entorno"]
     SETUP --> S1["requirements.txt"]
-    SETUP --> S2["VERIFICAR_AMBIENTE.py"]
-    SETUP --> S3["INICIAR_JOGO_WINDOWS.bat"]
     SETUP --> S4[".vscode/ y conftest.py"]
 
     ROOT --> OLD["Legado, fuera del pinball"]

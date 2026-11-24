@@ -11,7 +11,7 @@
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe VERIFICAR_AMBIENTE.py
+.\.venv\Scripts\python.exe -c "import pygame, OpenGL; print(pygame.version.ver, OpenGL.__version__)"
 .\.venv\Scripts\python.exe main.py
 ```
 
@@ -32,7 +32,7 @@ deactivate                               # sai do ambiente
 
 No VS Code, selecione `.venv/bin/python` em `Python: Select Interpreter` (o `.vscode/settings.json` aponta para o caminho do Windows).
 
-Alternativa: `INICIAR_JOGO_WINDOWS.bat` automatiza os passos de instalar e iniciar no Windows. Na primeira execução, é necessária internet para baixar os pacotes. **Não execute `modulos/core/game.py` isoladamente**; rode `main.py` na raiz.
+Na primeira instalação, é necessária internet para baixar os pacotes. **Não execute `modulos/core/game.py` isoladamente**; rode `main.py` na raiz.
 
 **Documentação detalhada:** `docs/entrega/GUIA_VSCODE_WINDOWS.md` — instalação, problemas frequentes, seleção de ambiente. `docs/entrega/MAPA_DE_MODULOS_APRESENTACAO.md` — localização de sprites, áudio, física e regras; roteiro para explicar ao professor. `docs/entrega/GDD_COM_ANEXO_TECNICO.docx` — GDD com anexo explicativo. GDD original está preservado em `docs/entrega/GDD_original.docx`.
 
@@ -185,12 +185,10 @@ flowchart LR
 
     ROOT --> DOC["Documentação"]
     DOC --> D1["docs/: 20<br/>Inclui 6 de entrega"]
-    DOC --> D2["README.md e ENTREGA_LEIA_PRIMEIRO.txt"]
+    DOC --> D2["README.md"]
 
     ROOT --> SETUP["Execução e ambiente"]
     SETUP --> S1["requirements.txt"]
-    SETUP --> S2["VERIFICAR_AMBIENTE.py"]
-    SETUP --> S3["INICIAR_JOGO_WINDOWS.bat"]
     SETUP --> S4[".vscode/ e conftest.py"]
 
     ROOT --> OLD["Legado, fora do pinball"]
@@ -207,4 +205,4 @@ flowchart LR
 
 ### Materiais legados
 
-Não fazem parte do pinball: `exemplos/`, `diagramas/`, `data/`, `requirements_original_utf16.txt`, `modulos/editor.py`, `modulos/utils.py`, `modulos/entities/player.py`, `modulos/entities/tiles.py`, `modulos/events/actions.py`, `modulos/events/io.py`, `modulos/ui/background.py`, `modulos/ui/level1.py` e `modulos/ui/panel.py`. As versões originais de `main.py` e dos arquivos de núcleo do protótipo (antes na raiz) continuam na branch `alvaro-star/migracao-arquitetura`, no commit "Registrar protótipo original antes da migração".
+Não fazem parte do pinball: `exemplos/`, `diagramas/`, `data/`, `modulos/editor.py`, `modulos/utils.py`, `modulos/entities/player.py`, `modulos/entities/tiles.py`, `modulos/events/actions.py`, `modulos/events/io.py`, `modulos/ui/background.py`, `modulos/ui/level1.py` e `modulos/ui/panel.py`. As versões originais de `main.py` e dos arquivos de núcleo do protótipo (antes na raiz) continuam na branch `alvaro-star/migracao-arquitetura`, no commit "Registrar protótipo original antes da migração".

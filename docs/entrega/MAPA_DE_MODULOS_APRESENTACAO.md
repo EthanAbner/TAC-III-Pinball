@@ -33,7 +33,6 @@
 | GDD original | `docs/entrega/GDD_original.docx` | Documento entregue, preservado sem alteração. |
 | GDD complementado | `docs/entrega/GDD_COM_ANEXO_TECNICO.docx` | Cópia com mapa e guia anexados para apresentação. |
 | Testes | `tests/` | Testes de regras, física e presença de assets. |
-| Verificador | `VERIFICAR_AMBIENTE.py` | Mostra qual Python está rodando e verifica `pygame` e `OpenGL`. |
 
 **IMPORTANTE:** `assets/sounds/` (plural), caso presente no material legado, contém efeitos do protótipo antigo e **não é a pasta usada pelo jogo atual**. O diretório operacional é `assets/sound/` (singular). Não apresentar músicas herdadas do protótipo como trilha original do pinball.
 

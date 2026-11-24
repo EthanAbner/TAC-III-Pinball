@@ -17,7 +17,7 @@ Esta matriz foi elaborada a partir do documento **UNI - TAC III - GDD de Pinball
 | RF11 | Efeitos sonoros de colisão, power-ups e game over | `audio/audio_manager.py`, `assets/sound/*.wav` | Arquivos gerados; reprodução pendente de validação |
 | RF12 | Trilha musical de fundo | `assets/sound/music.wav`, `audio/audio_manager.py` | Arquivo gerado; reprodução pendente de validação |
 | RF13 | HUD com pontos, vidas e status dos power-ups | `ui/stage.py` (`draw_hud`) | Código revisado; interface pendente de validação |
-| RNF1 | Rodar em PC Windows | `main.py`, `.vscode/launch.json`, `INICIAR_JOGO_WINDOWS.bat`, `requirements.txt` | Estrutura Windows criada; execução real pendente |
+| RNF1 | Rodar em PC Windows | `main.py`, `.vscode/launch.json`, `requirements.txt` | Estrutura Windows criada; execução real pendente |
 | RNF2 | Mínimo 30 FPS | `constants.FPS=60`, `modulos/core/display.py` | **Não comprovado** sem benchmark Windows |
 | RNF3 | Compatibilidade com resoluções comuns | `modulos/core/display.py`: janela proporcional ajustada à tela | Código revisado; teste em diferentes monitores pendente |
 | RNF4 | Código modular | `modulos/{engine,display,input,physics,entities,audio,effects,ui,config}` | Organização/compilação confirmadas |
